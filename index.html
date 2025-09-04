@@ -26,12 +26,17 @@
         </video>
       </div>
       <div
-        class="container d-flex flex-row align-items-center justify-content-between w-100 "
+        class="container d-flex flex-row align-items-center justify-content-between w-100"
       >
         <!-- Logo Flutuante -->
         <div class="">
           <img src="assets/images/logo.svg" alt="Logo" class="logo-image" />
         </div>
+
+        <!-- Botão Menu Mobile -->
+        <button class="menu-toggle d-none">
+          <i class="bi bi-list"></i>
+        </button>
 
         <!-- Menu Tecnológico -->
         <nav class="nav-tech">
@@ -42,6 +47,15 @@
                   <i class="bi bi-terminal"></i>
                   <span class="tech-text"
                     >Home<span class="blink">_</span></span
+                  >
+                </div>
+                <div class="tech-hover-effect"></div>
+              </a>
+              <a href="#sobre" class="tech-link">
+                <div class="tech-link-content">
+                  <i class="bi bi-person-badge"></i>
+                  <span class="tech-text"
+                    >Sobre<span class="blink">_</span></span
                   >
                 </div>
                 <div class="tech-hover-effect"></div>
@@ -77,6 +91,96 @@
 
     <!-- Divisor com Gradiente -->
     <div class="gradient-divider"></div>
+
+    <!-- Seção Sobre -->
+    <section id="sobre" class="about-section">
+      <div class="container">
+        <h2 class="section-title">Sobre</h2>
+        <div class="about-content">
+          <div class="profile-header">
+            <div class="profile-name">
+              <span class="name-prefix">> ./</span>
+              <h3 class="dev-name">Raphael Miollo</h3>
+              <span class="cursor">_</span>
+            </div>
+            <p class="role-title">Desenvolvedor Full Stack & Mobile</p>
+          </div>
+          
+          <div class="about-grid">
+            <div class="about-text">
+              <p class="about-description">
+                Especialista em desenvolvimento de soluções digitais, com foco em criar experiências excepcionais 
+                e produtos que fazem a diferença. Com uma abordagem centrada no usuário e atenção aos detalhes, 
+                transformo ideias em realidade através de código limpo e tecnologias modernas.
+              </p>
+            </div>
+
+            <div class="services-section">
+              <h3 class="services-title">Serviços</h3>
+              <div class="services-grid">
+                <div class="service-card">
+                  <i class="bi bi-window-desktop service-icon"></i>
+                  <h4>Desenvolvimento Web</h4>
+                  <p>Sites responsivos, aplicações web e sistemas personalizados com as melhores práticas de desenvolvimento.</p>
+                </div>
+
+                <div class="service-card">
+                  <i class="bi bi-phone service-icon"></i>
+                  <h4>Apps Mobile</h4>
+                  <p>Aplicativos nativos e multiplataforma para iOS e Android, com foco em performance e experiência do usuário.</p>
+                </div>
+
+                <div class="service-card">
+                  <i class="bi bi-graph-up-arrow service-icon"></i>
+                  <h4>SEO Optimization</h4>
+                  <p>Otimização para mecanismos de busca, melhorando a visibilidade e o alcance do seu negócio.</p>
+                </div>
+
+                <div class="service-card">
+                  <i class="bi bi-gear-wide-connected service-icon"></i>
+                  <h4>Consultoria Técnica</h4>
+                  <p>Análise e planejamento de projetos, arquitetura de software e melhores práticas de desenvolvimento.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="tech-stack">
+              <h3 class="tech-stack-title">Tecnologias</h3>
+              <div class="tech-categories">
+                <div class="tech-category">
+                  <h4 class="category-title">Frontend</h4>
+                  <div class="tech-tags">
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">Vue.js</span>
+                    <span class="tech-tag">TypeScript</span>
+                    <span class="tech-tag">Next.js</span>
+                  </div>
+                </div>
+                
+                <div class="tech-category">
+                  <h4 class="category-title">Backend</h4>
+                  <div class="tech-tags">
+                    <span class="tech-tag">Node.js</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">PostgreSQL</span>
+                    <span class="tech-tag">MongoDB</span>
+                  </div>
+                </div>
+
+                <div class="tech-category">
+                  <h4 class="category-title">Mobile</h4>
+                  <div class="tech-tags">
+                    <span class="tech-tag">Flutter</span>
+                    <span class="tech-tag">React Native</span>
+                    <span class="tech-tag">Firebase</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Seção de Projetos -->
     <section id="projetos" class="projects-section">
@@ -160,5 +264,7 @@
 
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="./assets/js/script.js"></script>
   </body>
 </html>
