@@ -387,16 +387,21 @@ body {
     justify-content: space-between;
     align-items: center;
     position: fixed;
-    top: 0;
+    top: -70px; /* Inicialmente escondido */
     left: 0;
     right: 0;
     padding: 1rem 1.5rem;
     background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(15px);
     border-bottom: 1px solid rgba(0, 255, 128, 0.15);
-    z-index: 99999; /* Valor altíssimo para garantir que fique acima de tudo */
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+    z-index: 99999;
+    transition: top 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
     height: 70px;
+  }
+  
+  /* Mostrar header apenas quando estiver no topo */
+  .mobile-header-container.show-on-top {
+    top: 0;
   }
   
   /* Aumentar contraste quando o menu está aberto */
@@ -1231,5 +1236,123 @@ body {
   
   .tech-link {
     padding: 0.6rem 1.2rem;
+  }
+}
+
+/* Botão Voltar ao Topo */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, rgba(0, 255, 128, 0.9), rgba(0, 200, 100, 0.9));
+  border: 2px solid rgba(0, 255, 128, 0.4);
+  border-radius: 50%;
+  color: #000;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.8);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 8px 25px rgba(0, 255, 128, 0.3),
+    0 0 0 0 rgba(0, 255, 128, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+
+.back-to-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.back-to-top:hover::before {
+  left: 100%;
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.back-to-top:hover {
+  background: linear-gradient(135deg, rgba(0, 255, 128, 1), rgba(0, 230, 115, 1));
+  border-color: rgba(0, 255, 128, 0.8);
+  box-shadow: 
+    0 12px 35px rgba(0, 255, 128, 0.4),
+    0 0 0 8px rgba(0, 255, 128, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-3px) scale(1.05);
+}
+
+.back-to-top:active {
+  transform: translateY(0) scale(0.95);
+  box-shadow: 
+    0 5px 15px rgba(0, 255, 128, 0.3),
+    0 0 0 4px rgba(0, 255, 128, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.back-to-top i {
+  font-size: 1.3rem;
+  color: #000;
+  font-weight: bold;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.back-to-top:hover i {
+  transform: translateY(-2px);
+}
+
+/* Animação de pulso único para chamar atenção apenas ao aparecer */
+@keyframes single-pulse-glow {
+  0% {
+    box-shadow: 
+      0 8px 25px rgba(0, 255, 128, 0.3),
+      0 0 0 0 rgba(0, 255, 128, 0.4);
+  }
+  50% {
+    box-shadow: 
+      0 8px 25px rgba(0, 255, 128, 0.5),
+      0 0 0 15px rgba(0, 255, 128, 0.1);
+  }
+  100% {
+    box-shadow: 
+      0 8px 25px rgba(0, 255, 128, 0.3),
+      0 0 0 0 rgba(0, 255, 128, 0.4);
+  }
+}
+
+.back-to-top.pulse-once {
+  animation: single-pulse-glow 1s ease-out;
+}
+
+/* Responsivo para mobile */
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+  
+  .back-to-top i {
+    font-size: 1.1rem;
   }
 }
