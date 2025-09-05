@@ -100,6 +100,19 @@ body {
     padding: 1rem 2rem !important;
   }
   
+  /* Logo à esquerda */
+  .nav-brand {
+    display: flex !important;
+    align-items: center !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    z-index: auto !important;
+  }
+  
+  /* Menu à direita */
   .nav-links {
     display: flex !important;
     flex-direction: row !important;
@@ -109,6 +122,8 @@ body {
     max-width: none !important;
     margin: 0 !important;
     padding: 0 !important;
+    list-style: none !important;
+    align-items: center !important;
   }
   
   .nav-links .nav-item {
@@ -117,6 +132,10 @@ body {
     margin-bottom: 0 !important;
     opacity: 1 !important;
     transform: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
   }
   
   .nav-links .nav-item .tech-link {
@@ -127,6 +146,14 @@ body {
     max-width: none !important;
     width: auto !important;
     margin-bottom: 0 !important;
+    position: relative !important;
+    text-decoration: none !important;
+    color: #fff !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    transition: all 0.3s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
   }
 }
 
@@ -147,7 +174,7 @@ body {
 }
 
 .nav-item .tech-link {
-  width: 100%;
+  width: auto;
   display: flex !important;
   align-items: center !important;
   pointer-events: auto !important;
@@ -157,6 +184,13 @@ body {
 .logo-image {
   height: 40px;
   transition: all 0.3s ease;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0.4rem;
 }
 
 .logo-image:hover {
