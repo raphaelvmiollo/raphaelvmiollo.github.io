@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Obter elementos do menu
+    const menuTech = document.querySelector('.menu-tech');
+    const navBrand = document.querySelector('.nav-brand');
+    
     // Criar elementos para o mobile
     const menuToggle = document.createElement('button');
     menuToggle.className = 'menu-toggle';
     menuToggle.innerHTML = '<i class="bi bi-list"></i>';
-    
-    // Obter elementos do menu
-    const menuTech = document.querySelector('.menu-tech');
-    const container = document.querySelector('.container');
-    const navBrand = document.querySelector('.nav-brand');
+    menuToggle.setAttribute('aria-label', 'Toggle menu');
     
     // Criar header mobile
     const mobileHeaderContainer = document.createElement('div');
@@ -19,8 +19,10 @@ document.addEventListener('DOMContentLoaded', function() {
     mobileLogo.href = '#';
     
     // Clonar a imagem do logo
-    const logoClone = navBrand.querySelector('.logo-image').cloneNode(true);
-    mobileLogo.appendChild(logoClone);
+    if (navBrand && navBrand.querySelector('.logo-image')) {
+        const logoClone = navBrand.querySelector('.logo-image').cloneNode(true);
+        mobileLogo.appendChild(logoClone);
+    }
     
     // Adicionar elementos ao header mobile
     mobileHeaderContainer.appendChild(mobileLogo);
@@ -29,17 +31,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Adicionar header mobile ao body
     document.body.insertBefore(mobileHeaderContainer, document.body.firstChild);
     
-    // Função para verificar se está em viewport mobile ou tablet
+    // Função para verificar se está em viewport mobile
     function isMobile() {
-        return window.innerWidth <= 991; // Abrange mobile e tablet
+        return window.innerWidth <= 991;
     }
     
-    // Ajustar visibilidade do logo original baseado no tamanho da tela
+    // Ajustar visibilidade do logo original
     function adjustLogoVisibility() {
-        if (isMobile()) {
-            navBrand.style.opacity = '0';
-        } else {
-            navBrand.style.opacity = '1';
+        if (navBrand) {
+            if (isMobile()) {
+                navBrand.style.opacity = '0';
+                navBrand.style.pointerEvents = 'none';
+            } else {
+                navBrand.style.opacity = '1';
+                navBrand.style.pointerEvents = 'auto';
+            }
         }
     }
     
@@ -52,74 +58,87 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Toggle menu ao clicar no botão
     menuToggle.addEventListener('click', function(e) {
-        e.preventDefault(); // Prevenir comportamento padrão
-        e.stopPropagation(); // Impedir propagação do evento
+        e.preventDefault();
+        e.stopPropagation();
         
-        menuTech.classList.toggle('active');
-        document.body.classList.toggle('menu-open');
+        console.log('Botão do menu clicado'); // Debug
         
-        // Impedir rolagem quando menu está aberto, mas salvar a posição atual
-        if (menuTech.classList.contains('active')) {
-            // Salvar a posição atual do scroll
+        const isActive = menuTech.classList.contains('active');
+        
+        if (!isActive) {
+            // Abrir menu
             scrollPosition = window.pageYOffset;
-            document.body.style.overflow = 'hidden';
+            menuTech.classList.add('active');
+            document.body.classList.add('menu-open');
+            
+            // Forçar exibição
+            menuTech.style.display = 'flex';
+            menuTech.style.visibility = 'visible';
+            menuTech.style.zIndex = '99998';
+            
+            console.log('Menu aberto'); // Debug
         } else {
-            // Restaurar a rolagem
-            document.body.style.overflow = '';
-            window.scrollTo(0, scrollPosition);
+            // Fechar menu
+            menuTech.classList.remove('active');
+            document.body.classList.remove('menu-open');
+            
+            // Restaurar scroll depois da animação
+            setTimeout(() => {
+                window.scrollTo(0, scrollPosition);
+            }, 400);
+            
+            console.log('Menu fechado'); // Debug
         }
     });
     
     // Lidar com cliques nos links do menu
     const techLinks = document.querySelectorAll('.tech-link');
     techLinks.forEach(link => {
-        // Remover listeners existentes para evitar duplicação
-        const newLink = link.cloneNode(true);
-        link.parentNode.replaceChild(newLink, link);
-        
-        // Adicionar novos event listeners
-        newLink.addEventListener('click', function(e) {
+        link.addEventListener('click', function(e) {
+            console.log('Link clicado:', this.getAttribute('href'));
+            
             // Se estamos no mobile e o menu está aberto, fechá-lo
             if (isMobile() && menuTech.classList.contains('active')) {
                 menuTech.classList.remove('active');
                 document.body.classList.remove('menu-open');
                 document.body.style.overflow = '';
-                // Não usamos scrollTo aqui para permitir a navegação padrão do link
             }
             
-            // Deixar o link fazer sua navegação naturalmente
-            return true;
+            // Permitir a navegação padrão do link
         });
         
-        // Adicionar efeito de hover
-        const hoverEffect = newLink.querySelector('.tech-hover-effect');
-        if (hoverEffect) {
-            newLink.addEventListener('mouseenter', function() {
-                hoverEffect.style.transform = 'scaleX(1)';
-            });
-            
-            newLink.addEventListener('mouseleave', function() {
-                hoverEffect.style.transform = 'scaleX(0)';
-            });
+        // Adicionar efeito de hover apenas no desktop
+        if (!isMobile()) {
+            const hoverEffect = link.querySelector('.tech-hover-effect');
+            if (hoverEffect) {
+                link.addEventListener('mouseenter', function() {
+                    hoverEffect.style.transform = 'scaleX(1)';
+                });
+                
+                link.addEventListener('mouseleave', function() {
+                    hoverEffect.style.transform = 'scaleX(0)';
+                });
+            }
         }
     });
     
     // Fechar menu ao clicar fora
     document.addEventListener('click', function(e) {
-        if (menuTech.classList.contains('active') && 
-            !menuTech.contains(e.target) && 
-            !menuToggle.contains(e.target) && 
-            !mobileLogo.contains(e.target)) {
-            
-            menuTech.classList.remove('active');
-            document.body.classList.remove('menu-open');
-            document.body.style.overflow = '';
-            window.scrollTo(0, scrollPosition);
+        if (menuTech.classList.contains('active')) {
+            if (!menuTech.contains(e.target) && 
+                !menuToggle.contains(e.target) && 
+                !mobileLogo.contains(e.target)) {
+                
+                menuTech.classList.remove('active');
+                document.body.classList.remove('menu-open');
+                document.body.style.overflow = '';
+                window.scrollTo(0, scrollPosition);
+            }
         }
     });
     
-    // Garantir que os links do menu sempre funcionem
-    document.querySelectorAll('.nav-links .nav-item a').forEach(function(link) {
-        link.style.pointerEvents = 'auto';
-    });
+    // Debug: verificar se os elementos foram criados
+    console.log('Menu tech:', menuTech);
+    console.log('Menu toggle:', menuToggle);
+    console.log('Mobile header:', mobileHeaderContainer);
 });
