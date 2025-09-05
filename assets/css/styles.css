@@ -663,7 +663,7 @@ body {
     height: 40px;
     filter: drop-shadow(0 0 8px rgba(0, 255, 128, 0.5));
   }
-}
+
 
 /* Title Container */
 .title-container {
@@ -673,8 +673,8 @@ body {
     justify-content: center;
     text-align: center;
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: calc(50% - 55px);
+    /* left: 50%; */
     transform: translate(-50%, -50%);
     width: 100%;
     z-index: 1;
